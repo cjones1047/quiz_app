@@ -39,11 +39,14 @@ class QuizInterface:
 
     def get_next_question(self):
         self.score_label["text"] = f"Score: {self.quiz.score}"
-        self.true_button["state"] = "normal"
-        self.false_button["state"] = "normal"
         self.question_box["bg"] = "white"
-        new_q_text = self.quiz.next_question()
-        self.question_box.itemconfig(self.current_question, text=new_q_text)
+        if self.quiz.still_has_questions():
+            self.true_button["state"] = "normal"
+            self.false_button["state"] = "normal"
+            new_q_text = self.quiz.next_question()
+            self.question_box.itemconfig(self.current_question, text=new_q_text)
+        else:
+            self.end_game()
 
     def click_true(self):
         self.give_feedback(self.quiz.check_answer("True"))
@@ -62,3 +65,9 @@ class QuizInterface:
             # change background red
             self.question_box["bg"] = "#FF5B33"
         self.window.after(1000, func=self.get_next_question)
+
+    def end_game(self):
+        self.question_box.itemconfig(self.current_question,
+                                     text="That's all.\n\n"
+                                          f"Final score: {self.quiz.score}/{len(self.quiz.question_list)}"
+                                     )
