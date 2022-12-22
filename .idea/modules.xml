@@ -2,6 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
+      <module fileurl="file://$PROJECT_DIR$/../flash_cards/.idea/flash_cards.iml" filepath="$PROJECT_DIR$/../flash_cards/.idea/flash_cards.iml" />
       <module fileurl="file://$PROJECT_DIR$/.idea/quiz_app.iml" filepath="$PROJECT_DIR$/.idea/quiz_app.iml" />
     </modules>
   </component>
