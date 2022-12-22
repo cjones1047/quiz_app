@@ -38,11 +38,27 @@ class QuizInterface:
         self.window.mainloop()
 
     def get_next_question(self):
+        self.score_label["text"] = f"Score: {self.quiz.score}"
+        self.true_button["state"] = "normal"
+        self.false_button["state"] = "normal"
+        self.question_box["bg"] = "white"
         new_q_text = self.quiz.next_question()
         self.question_box.itemconfig(self.current_question, text=new_q_text)
 
     def click_true(self):
-        self.quiz.check_answer("True")
+        self.give_feedback(self.quiz.check_answer("True"))
 
     def click_false(self):
-        self.quiz.check_answer("False")
+        self.give_feedback(self.quiz.check_answer("False"))
+
+    def give_feedback(self, user_answer):
+        # disable buttons while processing feedback
+        self.true_button["state"] = "disabled"
+        self.false_button["state"] = "disabled"
+        if user_answer:
+            # change background green
+            self.question_box["bg"] = "#33FF46"
+        else:
+            # change background red
+            self.question_box["bg"] = "#FF5B33"
+        self.window.after(1000, func=self.get_next_question)
