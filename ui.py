@@ -23,10 +23,10 @@ class QuizInterface:
                                                               font=("Arial", 20, "italic"))
 
         true_image = PhotoImage(file="./images/true.png")
-        self.true_button = Button(image=true_image, highlightbackground=THEME_COLOR)
+        self.true_button = Button(image=true_image, highlightbackground=THEME_COLOR, command=self.click_true)
 
         false_image = PhotoImage(file="./images/false.png")
-        self.false_button = Button(image=false_image, highlightbackground=THEME_COLOR)
+        self.false_button = Button(image=false_image, highlightbackground=THEME_COLOR, command=self.click_false)
 
         self.score_label.grid(column=1, row=0, padx=PADDING, pady=PADDING)
         self.question_box.grid(column=0, row=1, columnspan=2, padx=PADDING, pady=PADDING)
@@ -40,3 +40,9 @@ class QuizInterface:
     def get_next_question(self):
         new_q_text = self.quiz.next_question()
         self.question_box.itemconfig(self.current_question, text=new_q_text)
+
+    def click_true(self):
+        self.quiz.check_answer("True")
+
+    def click_false(self):
+        self.quiz.check_answer("False")
